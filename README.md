@@ -28,13 +28,13 @@ run_analysis
 	
 		data   <- data.table( cbind( Subject, y, X[,Header] ) )
 		
-* Step 4 - Uses descriptive activity names to name the activities in the data set. Appropriately labels the data set with descriptive activity names:
+* Step 3 - Uses descriptive activity names to name the activities in the data set. Appropriately labels the data set with descriptive activity names:
 
 	Load activity_labels.txt into "Activity" table and replace activity id for its label:
 	
 		data$Activity <- Activity$V2[ data$Activity ]
 
-* Step 5 - Creates a second, independent tidy data set with the average of each variable for each activity and each subject. 
+* Step 4 - Creates a second, independent tidy data set with the average of each variable for each activity and each subject. 
 
 	Grouping according request:
 	

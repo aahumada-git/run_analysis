@@ -14,15 +14,21 @@
 #  Global Variable
 #
 ###
-BASE_DIR <- "C:\\Users\\aahumada.SA\\MatLab\\RStudio\\run_analysis\\UCI HAR Dataset"
+BASE_DIR <- "C:\\Users\\aahumada.SA\\MatLab\\RStudio\\run_analysis"
+# BASE_DIR <- "."
 
-FEATURE   <- paste(BASE_DIR, "features.txt", sep = "\\")
-ACTIVITY  <- paste(BASE_DIR, "activity_labels.txt", sep = "\\")
-MERGE_DIR <- paste(BASE_DIR, "merge", sep = "\\")
-TEST_DIR  <- paste(BASE_DIR, "test" , sep = "\\")
-TRAIN_DIR <- paste(BASE_DIR, "train", sep = "\\")
+setwd(BASE_DIR)
 
-OUTPUT    <- paste(BASE_DIR, "tydy.txt", sep = "\\")
+DATA_DIR  <- paste(BASE_DIR, "UCI HAR Dataset"     , sep = "\\")
+
+FEATURE   <- paste(DATA_DIR, "features.txt"        , sep = "\\")
+ACTIVITY  <- paste(DATA_DIR, "activity_labels.txt" , sep = "\\")
+TEST_DIR  <- paste(DATA_DIR, "test"                , sep = "\\")
+TRAIN_DIR <- paste(DATA_DIR, "train"               , sep = "\\")
+
+MERGE_DIR <- paste(DATA_DIR, "merge"               , sep = "\\")
+OUTPUT    <- paste(BASE_DIR, "tidy.txt"            , sep = "\\")
+
 
 SUBJECT_MERGE <- paste( MERGE_DIR, "subject_merge.txt", sep = "\\")
       X_MERGE <- paste( MERGE_DIR,       "X_merge.txt", sep = "\\")
@@ -68,8 +74,8 @@ y        <- read.table(      y_MERGE, header=FALSE)
 # Get Header Index
 Header <- Feature[ grepl("mean|std",Feature$V2), "V1"]
 
-# Bind Data Columns
-data        <- data.table( cbind( Subject, y, X[,Header] ) )
+# Join into data table
+data   <- data.table( cbind( Subject, y, X[,Header] ) )
 
 # Set Headers Names
 nam         <- Feature$V2[Header]
@@ -83,5 +89,6 @@ data$Activity <- Activity$V2[ data$Activity ]
 # Create grouping table
 TIDY <- data[, lapply(.SD,mean),by=list(Activity,Subject), .SDcols=3:dim(data)[2]]
 
+# Write it
 write.table(TIDY, file=OUTPUT, row.names=FALSE, col.names=TRUE, sep="\t", quote=FALSE)
 
