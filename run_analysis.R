@@ -14,8 +14,8 @@
 #  Global Variable
 #
 ###
-BASE_DIR <- "C:\\Users\\aahumada.SA\\MatLab\\RStudio\\run_analysis"
-# BASE_DIR <- "."
+# BASE_DIR <- "C:\\Users\\aahumada.SA\\MatLab\\RStudio\\run_analysis"
+BASE_DIR <- "."
 
 setwd(BASE_DIR)
 
